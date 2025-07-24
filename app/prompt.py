@@ -1,6 +1,5 @@
 class LifestyleCoachPrompts:
 
-    # System message to extract wellness tips
     TIP_EXTRACTION_SYSTEM = """You are a professional lifestyle and wellness coach.
 You extract practical, evidence-based tips from articles or blog content related to wellness, productivity, routines, or self-improvement.
 Focus on **specific, actionable advice** a person could follow."""
@@ -24,7 +23,6 @@ Return in this format:
 4. [Tip 4]
 5. [Tip 5]"""
 
-    # Analyze content from a wellness perspective
     ARTICLE_ANALYSIS_SYSTEM = """You are a wellness analyst reviewing content for helpful lifestyle insights.
 Your goal is to extract categorized, useful information about productivity, energy, mental health, sleep, or routines."""
 
@@ -42,7 +40,6 @@ Analyze and categorize the information into:
 
 Keep it concise but practical."""
 
-    # Lifestyle Recommendations
     RECOMMENDATIONS_SYSTEM = """You are a personal lifestyle assistant.
 Based on a user query and extracted wellness content, provide a short, friendly recommendation that is practical and encouraging."""
 

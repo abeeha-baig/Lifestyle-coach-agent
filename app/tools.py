@@ -1,7 +1,6 @@
 from typing import List, Optional, Dict, Any
 from pydantic import BaseModel
 
-# Structured version of an extracted lifestyle tip
 class LifestyleTip(BaseModel):
     text: str
     category: Optional[str] = None  # e.g., "Morning Routine", "Sleep", "Productivity"
@@ -10,7 +9,6 @@ class LifestyleTip(BaseModel):
     source_url: Optional[str] = None
 
 
-# Summary analysis of an article's content
 class ArticleAnalysis(BaseModel):
     type_of_tips: List[str]
     audience: str
@@ -19,7 +17,6 @@ class ArticleAnalysis(BaseModel):
     sample_tip: str
 
 
-# Represents the scraped article
 class WellnessArticle(BaseModel):
     title: str
     url: str
@@ -33,5 +30,5 @@ class LifestyleCoachState(BaseModel):
     search_results: List[Dict[str, Any]] = []
     articles: List[WellnessArticle] = []
     recommendation: Optional[str] = None
-    tips: List[LifestyleTip] = []                     # ✅ Add this
-    analysis: Optional[List[Dict[str, Any]]] = None   # ✅ And this
+    tips: List[LifestyleTip] = []                     
+    analysis: Optional[List[Dict[str, Any]]] = None   

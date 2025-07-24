@@ -1,44 +1,44 @@
+import os
+import sys
+import streamlit as st
 from dotenv import load_dotenv
-from app.workflow import Workflow
-import os, sys
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+from app.workflow import Workflow
+
 load_dotenv()
 
-def main():
-    workflow = Workflow()
-    print("💡 Lifestyle Coach Agent")
+workflow = Workflow()
 
-    while True:
-        query = input("\n🏃‍♀️ Lifestyle Goal or Challenge: ").strip()
-        if query.lower() in {"quit", "exit"}:
-            break
+st.set_page_config(page_title="Lifestyle Coach", page_icon="🏃‍♀️")
+st.title("💡 Lifestyle Coach Agent")
+st.markdown("Enter your **lifestyle goal or challenge** below to receive personalized tips and article insights.")
 
-        if query:
-            result = workflow.run(query)
-            print(f"\n📋 Personalized Recommendations for: {query}")
-            print("=" * 60)
+query = st.text_input("🏃‍♀️ Lifestyle Goal or Challenge")
 
-            if result.tips:
-                print("\n🌿 Lifestyle Tips:")
-                for i, tip in enumerate(result.tips, 1):
-                    print(f"{i}. {tip.text}")
-                    if tip.source_url:
-                        print(f"   🔗 Source: {tip.source_url}")
+if query:
+    result = workflow.run(query)
 
-            if result.analysis:
-                print("\n🧠 Article Insights:")
-                print("-" * 40)
-                for i, article in enumerate(result.analysis, 1):
-                    print(f"\nArticle {i}: {article.title}")
-                    print(f"📝 Summary: {article.summary}")
-                    print(f"💡 Key Insights: {article.key_insights}")
-                    print(f"🔗 Source: {article.url}")
+    st.markdown(f"## 📋 Personalized Recommendations for: _{query}_")
+    st.markdown("---")
 
-            if result.recommendation:
-                print("\n🎯 Lifestyle Coach Recommendation:")
-                print("-" * 40)
-                print(result.recommendation)
+    if result.tips:
+        st.subheader("🌿 Lifestyle Tips")
+        for i, tip in enumerate(result.tips, 1):
+            st.markdown(f"**{i}.** {tip.text}")
+            if tip.source_url:
+                st.markdown(f"🔗 [Source]({tip.source_url})")
 
-if __name__ == "__main__":
-    main()
+    if result.analysis:
+        st.subheader("🧠 Article Insights")
+        for i, article in enumerate(result.analysis, 1):
+            st.markdown(f"### Article {i}: {article.title}")
+            st.markdown(f"📝 **Summary:** {article.summary}")
+            st.markdown(f"💡 **Key Insights:** {article.key_insights}")
+            st.markdown(f"🔗 [Source]({article.url})")
+
+    if result.recommendation:
+        st.subheader("🎯 Lifestyle Coach Recommendation")
+        st.markdown(f"_{result.recommendation}_")
+

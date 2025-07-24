@@ -1,14 +1,9 @@
-import os
+import streamlit as st
 from firecrawl import FirecrawlApp, ScrapeOptions
-from dotenv import load_dotenv
-
-load_dotenv()
 
 class FirecrawlService:
     def __init__(self):
-        api_key = os.getenv("FIRECRAWL_API_KEY")
-        if not api_key:
-            raise ValueError("FIRECRAWL_API_KEY environment variable is not set.")
+        api_key = st.secrets["FIRECRAWL_API_KEY"]
         self.app = FirecrawlApp(api_key=api_key)
 
     def search_articles(self, query: str, num_results: int = 5):
@@ -22,7 +17,7 @@ class FirecrawlService:
             )
             return result
         except Exception as e:
-            print(e)
+            st.error(f"Search error: {e}")
             return []
 
     def scrape_article(self, url: str):
@@ -33,5 +28,5 @@ class FirecrawlService:
             )
             return result
         except Exception as e:
-            print(e)
+            st.error(f"Scraping error: {e}")
             return None

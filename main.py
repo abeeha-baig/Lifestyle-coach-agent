@@ -1,13 +1,10 @@
 import os
 import sys
 import streamlit as st
-from dotenv import load_dotenv
 
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from app.workflow import Workflow
-
-load_dotenv()
 
 workflow = Workflow()
 
@@ -41,4 +38,3 @@ if query:
     if result.recommendation:
         st.subheader("🎯 Lifestyle Coach Recommendation")
         st.markdown(f"_{result.recommendation}_")
-
